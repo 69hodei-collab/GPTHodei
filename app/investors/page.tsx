@@ -1,1 +1,1 @@
-m«ëˆ§½©buªàºg§µªiþ)ïzËh®Ïéj­³,j›jÇºà7an{¦Š)ßŠW¨¢ë_ŠW›n·š‘ºÞjG§r‡^v‹­¦ën¦)í¢X§zÊ•éà¶î˜7]yÊy×œ¡×¢ž›­†¥¥Ø¬¦V²¶¬™ë,j¢Šzn¶)éº×â•ç^}«¥µú+²×bžŠ.¶›­¢ëiº×â•ç^}«¥µú+²×hº
+import type {Metadata} from "next";import {InvestorsDashboard} from "@/components/investors-dashboard";export const metadata:Metadata={title:"Investor dashboard",robots:{index:false,follow:false}};export default function InvestorsPage(){return <InvestorsDashboard/>}

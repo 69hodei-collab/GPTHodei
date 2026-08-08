@@ -1,1 +1,6 @@
-m«ëˆ§½©buªàºg§µÖ­k÷(§+lRÆ y¶¬{®vçºh¢ø¥zŠ.µø¥y¶ëy©­æ¤zw(uçhºÚn¶êbÚ%Šw¬¡ù^aéƒu×œ¡×yÊz)éºØazZ]ŠÊek+aŠÉ²Æ z(§¦ëb›­~)^uçÚº[_¢»-v)è¢ëiºÚ.¶›­~)^uçÚº[_¢»-v‹­
+// Punto de entrada preparado para internacionalizaciÃ³n. En una siguiente fase,
+// este diccionario puede cargarse por locale sin cambiar los componentes.
+export const locales = ["es", "en"] as const;
+export type Locale = typeof locales[number];
+export const defaultLocale: Locale = "es";
+export const brandCopy = { es: { claim: "El jet privado, por fin a tu alcance.", modes: { charter: "Charter a medida", emptyLeg: "Empty legs", pooling: "Pooling" } } } as const;

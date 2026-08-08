@@ -1,1 +1,3 @@
-m«ëˆ§½©buªàºg§µªiýé©·)^‚Ïéj­³,j›jÇºà7an{¦Š)ßŠW¨¢ë_ŠW›n·š‘ºÞjG§r‡^v‹­¦ën¦)í¢X§zÊ•éà¶î˜7]yÊy×œ¡×¢ž›­†¥¥Ø¬¦V²¶¬™ë,j¢Šzn¶)éº×â•ç^}«¥µú+²×bžŠ.¶›­¢ëiº×â•ç^}«¥µú+²×hº
+import type { Metadata } from "next"; import { EmptyLegsList } from "@/components/empty-legs-list";
+export const metadata: Metadata={title:"Empty legs",description:"Vuelos privados de reposicionamiento con ahorro visible y operadores verificados."};
+export default function EmptyLegsPage(){return <EmptyLegsList/>}

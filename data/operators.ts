@@ -1,1 +1,25 @@
-m«ëˆ§½©buªàºg§µÖ­kú)z¶­¢»-±KæÚ±î¸Ø[é¢Šwâ•ê(º×â•æÛ­æ¤n·š‘éÜ¡×¢ëiºÛ©Š{h–)Ş²‡åzx-†{¦×^r‡^uç(uè§¦ëa…éiv+)•¬­†+&zËè¢›­Šznµø¥y×Ÿjém~ŠìµØ§¢‹­¦ëhºÚnµø¥y×Ÿjém~ŠìµÚ.
+export type Operator = {
+  id: string; name: string; base: string; region: string; aoc: string; rating: number;
+  fleetSize: number; fleet: string[]; policy: string; emptyLegPolicy: string;
+};
+
+export const operators: Operator[] = [
+  {
+    id: "aerocruz", name: "AeroCruz Charter", base: "Ciudad de MÃ©xico", region: "MÃ©xico y conexiones internacionales", aoc: "MX-AOC-ACX-0417", rating: 4.9,
+    fleetSize: 13, fleet: ["XA-ACR Â· Citation Latitude", "XA-JET Â· Challenger 350", "XA-CRZ Â· Gulfstream G500"],
+    policy: "CancelaciÃ³n del pasajero hasta 2 h antes. Si cancela el operador, el importe pasa Ã­ntegro al wallet BlaJet.",
+    emptyLegPolicy: "Publica con 72 h de antelaciÃ³n y actualiza disponibilidad cada 15 min. Asientos con pasaporte y selfie. No opera cabotaje dentro de EE. UU.",
+  },
+  {
+    id: "lacbleu", name: "Lac Bleu Aviation", base: "Ginebra Â· Niza", region: "Europa y MediterrÃ¡neo", aoc: "CH-AOC-LBA-228", rating: 4.8,
+    fleetSize: 9, fleet: ["HB-LBA Â· Praetor 600", "HB-NCE Â· Falcon 2000LXS", "HB-SKY Â· Challenger 650"],
+    policy: "ReprogramaciÃ³n sin coste hasta 24 h antes. CancelaciÃ³n sujeta a posicionamiento confirmado.",
+    emptyLegPolicy: "Especialista en Baleares y Costa Azul de mayo a septiembre. ConfirmaciÃ³n operativa 6 h antes.",
+  },
+  {
+    id: "senda", name: "Senda Air", base: "Madrid Â· Cascais", region: "PenÃ­nsula IbÃ©rica", aoc: "ES-AOC-SDA-119", rating: 4.9,
+    fleetSize: 7, fleet: ["EC-SDA Â· Phenom 300E", "EC-LUZ Â· Citation CJ4", "CS-SND Â· HondaJet Elite II"],
+    policy: "Cambios flexibles hasta 12 h antes. CrÃ©dito BlaJet vÃ¡lido durante 12 meses cuando el operador cancela.",
+    emptyLegPolicy: "Light jets para rutas domÃ©sticas de EspaÃ±a y Portugal. Mascotas admitidas con aviso previo.",
+  },
+];

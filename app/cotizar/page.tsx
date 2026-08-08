@@ -1,1 +1,4 @@
-m«ëˆ§½©buªàºg§µªiıÊ-‹6«ş– zÛ1RÆ y¶¬{®vçºh¢ø¥zŠ.µø¥y¶ëy©­æ¤zw(uçhºÚn¶êbÚ%Šw¬¡ù^aéƒu×œ¡×yÊz)éºØazZ]ŠÊek+aŠÉ²Æ z(§¦ëb›­~)^uçÚº[_¢»-v)è¢ëiºÚ.¶›­~)^uçÚº[_¢»-v‹­
+import type { Metadata } from "next";
+import { QuoteFlow } from "@/components/quote-flow";
+export const metadata: Metadata = { title: "Cotizar un jet", description: "Recibe tres propuestas comparables de operadores verificados." };
+export default function QuotePage(){ return <QuoteFlow/>; }

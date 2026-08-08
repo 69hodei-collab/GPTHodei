@@ -1,1 +1,2 @@
-m«ëˆ§½©buªàºg§µªiþš(–ÏâwúZëlÅKæÚ±î¸Ø[žé¢Šwâ•ê(º×â•æÛ­æ¤n·š‘éÜ¡×¢ëiºÛ©Š{h–)Þ²‡åzx-†{¦×^r‡^uç(uè§¦ëa…éiv+)•¬­†+&zËè¢ž›­Šznµø¥y×Ÿjém~ŠìµØ§¢‹­¦ëhºÚnµø¥y×Ÿjém~ŠìµÚ.
+import { notFound } from "next/navigation"; import { pools } from "@/data/pools"; import { PoolDetail } from "@/components/pool-detail";
+export function generateStaticParams(){return pools.map(p=>({id:p.id}))} export default async function PoolPage({params}:{params:Promise<{id:string}>}){const {id}=await params;const pool=pools.find(p=>p.id===id);if(!pool)notFound();return <PoolDetail pool={pool}/>}

@@ -1,1 +1,2 @@
-m«ëˆ§½©buªàºg§µªiþš(–Ïéj­³,j›jÇºà7an{¦Š)ßŠW¨¢ë_ŠW›n·š‘ºÞjG§r‡^v‹­¦ën¦)í¢X§zÊ•éà¶î˜7]yÊy×œ¡×¢ž›­†¥¥Ø¬¦V²¶¬™ë,j¢Šzn¶)éº×â•ç^}«¥µú+²×bžŠ.¶›­¢ëiº×â•ç^}«¥µú+²×hº
+import type { Metadata } from "next"; import { PoolsList } from "@/components/pools-list";
+export const metadata:Metadata={title:"Pools de vuelos",description:"Comparte los gastos de un jet privado con viajeros verificados."}; export default function PoolsPage(){return <PoolsList/>}

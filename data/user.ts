@@ -1,1 +1,9 @@
-m«ëˆ§½©buªàºg§µÖ­kû¬z»lRÆ y¶¬{®vçºh¢ø¥zŠ.µø¥y¶ëy©­æ¤zw(uçhºÚn¶êbÚ%Šw¬¡ù^aéƒu×œ¡×yÊz)éºØazZ]ŠÊek+aŠÉ²Æ z(§¦ëb›­~)^uçÚº[_¢»-v)è¢ëiºÚ.¶›­~)^uçÚº[_¢»-v‹­
+export const demoUser = {
+  name: "Carlos M.", initials: "CM", tier: "BlaJet Black", kyc: "Verificado",
+  wallet: 2840, miles: 18420,
+  pastBookings: [
+    { route: "MAD â†’ IBZ", date: "18 JUN 2026", aircraft: "Phenom 300E", amount: 1280 },
+    { route: "LBG â†’ GVA", date: "03 ABR 2026", aircraft: "Citation Latitude", amount: 6400 },
+  ],
+  activePool: "MAD â†’ IBZ Â· 23 AGO", alerts: ["MAD â†’ IBZ", "BCN â†’ PMI"],
+};
