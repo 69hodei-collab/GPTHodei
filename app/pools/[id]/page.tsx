@@ -1,0 +1,2 @@
+import { notFound } from "next/navigation"; import { pools } from "@/data/pools"; import { PoolDetail } from "@/components/pool-detail";
+export function generateStaticParams(){return pools.map(p=>({id:p.id}))} export default async function PoolPage({params}:{params:Promise<{id:string}>}){const {id}=await params;const pool=pools.find(p=>p.id===id);if(!pool)notFound();return <PoolDetail pool={pool}/>}

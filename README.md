@@ -1,10 +1,125 @@
-# GPTHodei
+# BlaJet — marketplace de aviación privada
 
-Repositorio de prueba para validar el flujo GitHub → Vercel y usarlo como laboratorio para futuras aplicaciones de iHodei.
+Demo premium y completamente navegable de BlaJet, construida para una presentación a inversores. La aplicación permite cotizar un charter y comparar tres operadores, reservar o pujar por un empty leg, y unirse a un pool viendo cómo baja el precio por plaza.
 
-## Objetivo
+## Stack y ejecución
 
-- Código versionado en GitHub
-- Despliegues automáticos en Vercel
-- Previews por cambios y ramas
-- Base para prototipos y MVPs
+- Next.js 15 con App Router y TypeScript estricto
+- Tailwind CSS con tokens propios
+- Datos 100% mock, sin servicios externos ni secretos
+- Preparado para despliegue directo en Vercel
+
+```bash
+npm install
+npm run dev
+```
+
+Validación de producción:
+
+```bash
+npm run typecheck
+npm run build
+```
+
+Vercel detecta Next.js automáticamente. No hacen falta variables de entorno: basta con importar el repositorio y desplegar. Cada rama o pull request genera una Preview Deployment; `main` queda reservada para producción.
+
+## Estructura del proyecto
+
+```text
+app/                    Rutas App Router, metadatos, SEO y estados de error
+components/             UI y flujos interactivos de producto
+data/                   Única fuente de datos mock editable
+  aviation.ts           Aeropuertos, categorías y fotografía
+  operators.ts          Red de operadores, AOC, flotas y políticas
+  empty-legs.ts         Inventario de reposicionamientos
+  pools.ts              Pools abiertos y vuelos con plazas libres
+  user.ts               Usuario y actividad del modo demo
+  investors.ts          GMV, funnel y métricas de negocio
+  copy.ts               Base de diccionarios para futura i18n
+public/                  Activos estáticos
+```
+
+Para preparar otra demo, edita primero los archivos de `/data`. Los identificadores `operatorId` de empty legs deben coincidir con un `id` de `/data/operators.ts`; lo mismo aplica a los IDs usados en las rutas dinámicas.
+
+## Modo demo
+
+El modo demo está activado por defecto y precarga a **Carlos M., miembro BlaJet Black** con dos viajes pasados, un pool activo, wallet, Miles y alertas.
+
+- Forzar activación: añade `?demo=1` a cualquier URL.
+- Forzar desactivación: añade `?demo=0`.
+- También se puede alternar con el control discreto de la cabecera.
+- La preferencia queda guardada en `localStorage` bajo `blajet-demo`.
+
+Sin modo demo, `/dashboard` muestra un onboarding KYC simulado de tres pasos. Ninguna imagen o dato personal se sube realmente.
+
+## Sistema de diseño
+
+La dirección de arte es «revista de aviación privada»: composición editorial, fotografía a sangre, serif protagonista y acento champán muy contenido.
+
+- Fondo oscuro: `#0A0B0F`; superficie: `#111319`; elevada: `#171920`.
+- Texto principal: `#F2EFE8`; secundario: `#999990`; línea: `#2A2C32`.
+- Champán: `#C9B07C`; éxito: `#76B895`; alerta: `#D66F62`.
+- Modo claro: blanco cálido `#F3F0E9`, nunca blanco puro.
+- Titulares: Fraunces mediante `next/font`; interfaz: Manrope mediante `next/font`.
+- Radios de 4–8 px, sombras en una dirección y espaciado sobre escala 4/8.
+- Todos los precios usan cifras tabulares; estados focus son visibles; se respeta `prefers-reduced-motion`.
+
+Los tokens viven en `app/globals.css` y `tailwind.config.ts`. Evita añadir colores directos, cards redondeadas genéricas, gradientes vistosos o nuevos radios fuera de la escala.
+
+## Flujos funcionales
+
+1. `/cotizar`: formulario validado → red de operadores → tres ofertas escalonadas → detalle y desglose → checkout simulado.
+2. `/empty-legs`: filtros y estado vacío → detalle → reserva por asiento o avión → oferta experimental con aceptación o rechazo cuidado.
+3. `/pools`: listado de dos submodalidades → detalle → otro viajero se une → contador y precio bajan → unión y checkout.
+4. `/dashboard`: wallet, Miles, alertas, historial, pool activo y nuevas reservas de la sesión.
+5. `/investors`: GMV coherente por modalidad, take rate, revenue, funnel, unit economics y métricas de marketplace.
+
+Las operaciones viven en estado local del navegador. La separación entre `data/` y componentes permite reemplazar los mocks por repositorios/API sin rediseñar las pantallas.
+
+## Guion de demo de 5 minutos
+
+### 0:00–1:00 · La propuesta en cinco segundos
+
+- Abre `/` con `?demo=1` en portátil o iPad.
+- Señala el hero y las tres modalidades; desplázate brevemente hasta «Tres formas de volar».
+- Frase clave: **«BlaJet reúne en una experiencia lo que hoy está fragmentado: charter a medida, capacidad vacía y demanda compartida.»**
+- Vuelve al buscador del hero, deja `MAD → IBZ`, 4 viajeros y pulsa **Cotizar**.
+
+### 1:00–2:00 · Charter: el marketplace compite
+
+- En `/cotizar`, confirma el formulario y pulsa **Solicitar 3 ofertas**.
+- Espera mientras las tres propuestas llegan escalonadas. No adelantes la pantalla: esa animación cuenta la historia de la red respondiendo.
+- Abre la propuesta marcada **Mejor valor**, señala el AOC, los extras y el desglose.
+- Pulsa **Reservar este jet** y confirma el checkout de demo.
+- Frase clave: **«Una solicitud, tres operadores verificados y una comparación realmente homogénea.»**
+
+### 2:00–3:00 · Empty leg: monetizar capacidad perdida
+
+- Abre `/empty-legs`; filtra origen `MAD`, destino `IBZ` y modalidad **Admite oferta**.
+- Abre el Phenom 300E. Señala la cuenta atrás, el ahorro frente a charter y la condición de venta por plaza.
+- Pulsa **Hacer una oferta**. Envía primero el importe precargado para mostrar el rechazo con siguiente paso; pulsa **Ajustar al mínimo**, reenvía y completa la reserva aceptada.
+- Frase clave: **«Convertimos un coste hundido del operador en inventario con urgencia, precio y reglas claras.»**
+
+### 3:00–4:00 · Pooling: el precio se mueve con la demanda
+
+- Abre `/pools` y entra en `MAD → IBZ`.
+- Espera dos o tres segundos: «Marina» se une, la tarjeta pulsa y el precio por plaza baja animado.
+- Muestra el perfil verificado, el chat y el umbral de confirmación. Pulsa **Unirme al pool** y confirma.
+- Frase clave: **«Cada nuevo viajero mejora la economía del grupo sin rebajar la experiencia.»**
+
+### 4:00–5:00 · Retención y oportunidad de negocio
+
+- Abre `/dashboard`: señala wallet, Miles, alertas y la reserva recién añadida.
+- Pulsa **Vista inversores**.
+- En `/investors`, recorre GMV de 12 meses, take rates, funnel y ratio LTV/CAC. Cierra en las métricas de marketplace.
+- Frase final: **«BlaJet no es una web de reservas; es la capa de liquidez y confianza para un mercado con capacidad desaprovechada.»**
+
+## Rutas complementarias
+
+- `/como-funciona`, `/faq`, `/black`, `/ahorro`
+- `/operadores` (panel B2B visual)
+- `/sobre-nosotros`, `/contacto`, `/legal`
+
+## Antes de una demo pública
+
+Las fotografías remotas se sirven desde Unsplash y están permitidas en `next.config.ts`. Para una demo sin conectividad, conviene reemplazarlas por archivos locales en `public/`. El contenido legal y los datos AOC son ilustrativos; requieren revisión jurídica y datos reales antes de operar comercialmente.

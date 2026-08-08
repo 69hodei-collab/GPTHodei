@@ -1,0 +1,1 @@
+import type {Metadata} from "next";import {InvestorsDashboard} from "@/components/investors-dashboard";export const metadata:Metadata={title:"Investor dashboard",robots:{index:false,follow:false}};export default function InvestorsPage(){return <InvestorsDashboard/>}
