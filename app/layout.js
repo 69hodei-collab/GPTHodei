@@ -9,7 +9,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="es">
       <body>{children}</body>
-      <script src="/live-demo.js" defer />
+      <script src="/live-demo-v2.js" defer />
     </html>
   );
 }
