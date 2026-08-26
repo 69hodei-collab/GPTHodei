@@ -5,7 +5,7 @@ import { downloadEuskadiTender } from './euskadi.js';
 import { getGraphAccessToken, resolveDrive, uploadFile } from './graph.js';
 import { ensureDir, isoDateMadrid, listFilesRecursive, safeName } from './util.js';
 
-const projectRoot = path.resolve(new URL('..', import.meta.url).pathname, '..');
+const projectRoot = path.resolve(new URL('..', import.meta.url).pathname);
 const configPath = process.env.EXPEDIENTES_FILE || path.join(projectRoot, 'config', 'expedientes.json');
 const dateKey = isoDateMadrid();
 const outputRoot = await ensureDir(process.env.OUTPUT_DIR || path.join(projectRoot, 'downloads', dateKey));
