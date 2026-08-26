@@ -8,10 +8,12 @@ on:
       - 'tools/tender-downloader/**'
       - '.github/workflows/tender-downloader.yml'
   schedule:
-    - cron: '35 6 * * 1-5'
+    - cron: '0 8 * * 1-5'
+      timezone: 'Europe/Madrid'
 
 permissions:
   contents: read
+  id-token: write
 
 jobs:
   download:
@@ -35,6 +37,12 @@ jobs:
         run: npx playwright install --with-deps chromium
 
       - name: Download tender documents
+        env:
+          AZURE_CLIENT_ID: ${{ vars.AZURE_CLIENT_ID }}
+          AZURE_TENANT_ID: ${{ vars.AZURE_TENANT_ID }}
+          SHAREPOINT_HOSTNAME: ${{ vars.SHAREPOINT_HOSTNAME }}
+          SHAREPOINT_SITE_PATH: ${{ vars.SHAREPOINT_SITE_PATH }}
+          SHAREPOINT_TARGET_FOLDER: ${{ vars.SHAREPOINT_TARGET_FOLDER }}
         run: node src/index.js
 
       - name: Keep downloaded evidence
