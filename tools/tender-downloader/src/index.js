@@ -2,6 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import { chromium } from 'playwright';
 import { downloadEuskadiTender } from './euskadi.js';
+import { downloadGenericTender } from './generic.js';
 import { getGraphAccessToken, resolveDrive, uploadFile } from './graph.js';
 import { ensureDir, isoDateMadrid, listFilesRecursive, safeName } from './util.js';
 
@@ -14,8 +15,9 @@ let tenders = JSON.parse(await fs.readFile(configPath, 'utf8'));
 if (process.env.TENDER_URL) {
   tenders = [{
     id: process.env.TENDER_ID || 'manual',
-    source: process.env.TENDER_SOURCE || 'euskadi',
-    url: process.env.TENDER_URL
+    source: process.env.TENDER_SOURCE || 'generic',
+    url: process.env.TENDER_URL,
+    documents: []
   }];
 }
 
@@ -24,11 +26,9 @@ const results = [];
 try {
   for (const tender of tenders) {
     console.log(`\n=== ${tender.id} (${tender.source}) ===`);
-    if (tender.source !== 'euskadi') {
-      results.push({ tender, errors: [`Fuente no implementada todavía: ${tender.source}`] });
-      continue;
-    }
-    const result = await downloadEuskadiTender(browser, tender, outputRoot);
+    const result = tender.source === 'euskadi'
+      ? await downloadEuskadiTender(browser, tender, outputRoot)
+      : await downloadGenericTender(browser, tender, outputRoot);
     console.log(`Descargas detectadas: ${result.saved.length}`);
     if (result.errors.length) console.warn(result.errors.join('\n'));
     results.push(result);
