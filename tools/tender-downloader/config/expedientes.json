@@ -1,19 +1,18 @@
 [
   {
-    "id": "BITHABITAT-42-2026-LOT1",
-    "source": "barcelona",
-    "url": "https://licitacions.bcn.cat/licitacion/licitaciones/detalle?id=17551237&language=es",
+    "id": "MUTUA-032-2026-0235",
+    "source": "mutua-universal",
+    "url": "https://registrocontratistas.mutuauniversal.net/licitacion/fichaExpte.do?idExpediente=13907",
     "documents": [
-      {"name":"01_PPT_BITHABITAT_42_2026.pdf","url":"https://licitacions.bcn.cat/licitacion/documento?idDoc=R3475502&numExpediente=093%2F42_2026"},
-      {"name":"02_PCAP_BITHABITAT_42_2026.pdf","url":"https://licitacions.bcn.cat/licitacion/documento?idDoc=R3475511&numExpediente=093%2F42_2026"},
-      {"name":"03_MEMORIA_BITHABITAT_42_2026.pdf","url":"https://licitacions.bcn.cat/licitacion/documento?idDoc=R3475466&numExpediente=093%2F42_2026"},
-      {"name":"04_RESOLUCION_BITHABITAT_42_2026.pdf","url":"https://licitacions.bcn.cat/licitacion/documento?idDoc=R3475478&numExpediente=093%2F42_2026"}
-    ]
+      {"name":"01_PCAP_MUTUA_032-2026-0235.pdf","url":"https://otevia.es/d?i=0&s=7GPVqU1W8E5AXhDJOTeJwTUK6k_TvgSWuncjEqOGBK4&t=032-2026-0235"},
+      {"name":"02_PPT_MUTUA_032-2026-0235.pdf","url":"https://otevia.es/d?i=1&s=Zk-QkCVKOgYX_yQgmNe1y70Pa6komJbguwyJ7azFv8w&t=032-2026-0235"}
+    ],
+    "autoDiscoverDownloads": true
   },
   {
-    "id": "TENERIFE-C2026-00045",
-    "source": "licitron-placsp",
-    "url": "https://www.licitron.com/licitaciones/espana/c2026-00045servicio-de-soporte-mantenimiento-tecn-e14327a2",
+    "id": "MUTUA-042-2026-0236",
+    "source": "mutua-universal",
+    "url": "https://registrocontratistas.mutuauniversal.net/licitacion/fichaExpte.do?idExpediente=13959",
     "documents": [],
     "autoDiscoverDownloads": true
   }
