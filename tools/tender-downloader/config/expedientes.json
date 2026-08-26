@@ -10,10 +10,12 @@
     "autoDiscoverDownloads": true
   },
   {
-    "id": "MUTUA-042-2026-0236",
-    "source": "mutua-universal",
-    "url": "https://registrocontratistas.mutuauniversal.net/licitacion/fichaExpte.do?idExpediente=13959",
-    "documents": [],
-    "autoDiscoverDownloads": true
+    "id": "PUERTO-SEVILLA-CONT26053",
+    "source": "otevia-placsp",
+    "url": "https://otevia.es/licitacion/desarrollo-software-autoridad-portuaria-de-sevilla/CONT26053",
+    "documents": [
+      {"name":"01_PCAP_CONT26053.pdf","url":"https://otevia.es/d?i=0&s=LqLutaHIYVgcq1cvW4BbjSZzcgYMx1quSJ4eZL749Xw&t=CONT26053"},
+      {"name":"02_PPT_CONT26053.pdf","url":"https://otevia.es/d?i=1&s=-Ze-qdmVb3hLt4XA0UokuYhkcljVQ-kWaL2XWYb8JEU&t=CONT26053"}
+    ]
   }
 ]
