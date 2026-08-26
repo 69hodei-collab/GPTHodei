@@ -1,7 +1,10 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { execFile } from 'node:child_process';
+import { promisify } from 'node:util';
 import { ensureDir, safeName, uniquePath } from './util.js';
 
+const execFileAsync = promisify(execFile);
 const FILE_EXT_RE = /\.(pdf|docx?|xlsx?|zip|xml|odt|ods|rtf)(?:$|[?#])/i;
 const FILE_WORD_RE = /(pliego|pcap|ppt|pct|deuc|anexo|memoria|modelo|documento|fichero|descarga)/i;
 
@@ -57,6 +60,28 @@ async function fetchDirectFile(page, href, outDir, label) {
   }
 }
 
+async function extractZipFiles(saved, tenderDir, errors) {
+  const extracted = [];
+  for (const file of saved) {
+    if (path.extname(file).toLowerCase() !== '.zip') continue;
+    const targetDir = await ensureDir(path.join(tenderDir, `${path.basename(file, '.zip')}_extraido`));
+    try {
+      await execFileAsync('unzip', ['-o', file, '-d', targetDir], { maxBuffer: 10 * 1024 * 1024 });
+      const entries = await fs.readdir(targetDir, { recursive: true });
+      for (const entry of entries) {
+        const full = path.join(targetDir, entry);
+        try {
+          const stat = await fs.stat(full);
+          if (stat.isFile()) extracted.push(full);
+        } catch {}
+      }
+    } catch (error) {
+      errors.push(`unzip ${path.basename(file)}: ${error.message}`);
+    }
+  }
+  return extracted;
+}
+
 export async function downloadEuskadiTender(browser, tender, rootDir) {
   const tenderDir = await ensureDir(path.join(rootDir, safeName(tender.id)));
   const browserContext = await browser.newContext({ acceptDownloads: true, locale: 'es-ES' });
@@ -65,6 +90,7 @@ export async function downloadEuskadiTender(browser, tender, rootDir) {
 
   const saved = [];
   const errors = [];
+  let extracted = [];
 
   try {
     await page.goto(tender.url, { waitUntil: 'domcontentloaded', timeout: 45000 });
@@ -83,14 +109,12 @@ export async function downloadEuskadiTender(browser, tender, rootDir) {
     };
     await fs.writeFile(path.join(tenderDir, 'metadata.json'), JSON.stringify(metadata, null, 2), 'utf8');
 
-    // Descarga global. En Euskadi suele generar dinámicamente un ZIP/fichero con los adjuntos.
     const globalDownload = page.getByText(/Descarga de los ficheros|Descarga de ficheros|Descargar ficheros/i).first();
     if (await globalDownload.count()) {
       const file = await clickAndCaptureDownload(page, globalDownload, tenderDir, 'descarga-completa');
       if (file) saved.push(file);
     }
 
-    // Enlaces directos a documentos.
     const links = await collectCandidateLinks(page);
     const directCandidates = links.filter((x) => FILE_EXT_RE.test(x.href) || FILE_WORD_RE.test(`${x.text} ${x.download}`));
     for (const candidate of directCandidates.slice(0, 80)) {
@@ -99,7 +123,6 @@ export async function downloadEuskadiTender(browser, tender, rootDir) {
       if (file) saved.push(file);
     }
 
-    // Algunos adjuntos sólo disparan la descarga al hacer clic.
     const clickCandidates = links.filter((x) => FILE_WORD_RE.test(x.text) && !/descarga de los ficheros/i.test(x.text));
     for (const candidate of clickCandidates.slice(0, 40)) {
       try {
@@ -110,6 +133,8 @@ export async function downloadEuskadiTender(browser, tender, rootDir) {
         errors.push(`click ${candidate.text}: ${error.message}`);
       }
     }
+
+    extracted = await extractZipFiles([...new Set(saved)], tenderDir, errors);
   } catch (error) {
     errors.push(error.stack || error.message);
     try {
@@ -119,11 +144,12 @@ export async function downloadEuskadiTender(browser, tender, rootDir) {
     await fs.writeFile(path.join(tenderDir, 'resultado.json'), JSON.stringify({
       tender,
       saved: [...new Set(saved.map((file) => path.basename(file)))],
+      extracted: extracted.map((file) => path.relative(tenderDir, file)),
       errors,
       finishedAt: new Date().toISOString()
     }, null, 2), 'utf8');
     await browserContext.close();
   }
 
-  return { tenderDir, saved: [...new Set(saved)], errors };
+  return { tenderDir, saved: [...new Set(saved)], extracted, errors };
 }
