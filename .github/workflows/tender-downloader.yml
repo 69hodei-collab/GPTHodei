@@ -1,0 +1,47 @@
+name: Tender downloader
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'tools/tender-downloader/**'
+      - '.github/workflows/tender-downloader.yml'
+  schedule:
+    - cron: '35 6 * * 1-5'
+
+permissions:
+  contents: read
+
+jobs:
+  download:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: tools/tender-downloader
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Download tender documents
+        run: node src/index.js
+
+      - name: Keep downloaded evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tender-download-${{ github.run_id }}
+          path: tools/tender-downloader/downloads/
+          if-no-files-found: warn
+          retention-days: 14
