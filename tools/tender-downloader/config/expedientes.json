@@ -1,7 +1,20 @@
 [
   {
-    "id": "EJIE-2026-106",
-    "source": "euskadi",
-    "url": "https://www.contratacion.euskadi.eus/contenidos/anuncio_contratacion/expjaso733197/es_doc/"
+    "id": "BITHABITAT-42-2026-LOT1",
+    "source": "barcelona",
+    "url": "https://licitacions.bcn.cat/licitacion/licitaciones/detalle?id=17551237&language=es",
+    "documents": [
+      {"name":"01_PPT_BITHABITAT_42_2026.pdf","url":"https://licitacions.bcn.cat/licitacion/documento?idDoc=R3475502&numExpediente=093%2F42_2026"},
+      {"name":"02_PCAP_BITHABITAT_42_2026.pdf","url":"https://licitacions.bcn.cat/licitacion/documento?idDoc=R3475511&numExpediente=093%2F42_2026"},
+      {"name":"03_MEMORIA_BITHABITAT_42_2026.pdf","url":"https://licitacions.bcn.cat/licitacion/documento?idDoc=R3475466&numExpediente=093%2F42_2026"},
+      {"name":"04_RESOLUCION_BITHABITAT_42_2026.pdf","url":"https://licitacions.bcn.cat/licitacion/documento?idDoc=R3475478&numExpediente=093%2F42_2026"}
+    ]
+  },
+  {
+    "id": "TENERIFE-C2026-00045",
+    "source": "licitron-placsp",
+    "url": "https://www.licitron.com/licitaciones/espana/c2026-00045servicio-de-soporte-mantenimiento-tecn-e14327a2",
+    "documents": [],
+    "autoDiscoverDownloads": true
   }
 ]
